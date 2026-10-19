@@ -1,0 +1,81 @@
+{
+  "schema_version": 1,
+  "project": {
+    "id": "AIPM-SKILL",
+    "name": "AI 辅助开发项目管理 Skill",
+    "timezone": "Asia/Shanghai"
+  },
+  "objectives": [
+    {
+      "id": "O-1",
+      "title": "让 AI 开发过程可持续恢复、可验收、可追溯",
+      "key_results": [
+        {"id": "KR-1", "metric": "有完整契约的二级功能占比", "target": "100%", "measurement_method": "项目状态 JSON 校验", "baseline": "0%"},
+        {"id": "KR-2", "metric": "用户触发的 HTML 更新流程确定性步骤覆盖率", "target": "100%", "measurement_method": "Looma 工作流契约测试", "baseline": "0%"},
+        {"id": "KR-3", "metric": "失败实验保留率", "target": "100% 的高价值失败实验有证据记录", "measurement_method": "实验 JSONL 与课题页核对", "baseline": "未测量"}
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "F-1",
+      "title": "状态模型与确定性进度计算",
+      "description": "用项目 JSON 保存 OKR、WBS、验收证据和交付状态。",
+      "weight": 2,
+      "work_packages": [
+        {
+          "id": "WP-001",
+          "title": "定义项目与 Work Package 状态契约",
+          "status": "TODO",
+          "description": "定义 OKR、一级功能、二级功能、里程碑、周计划和验收证据的数据结构。",
+          "inputs": ["用户功能清单", "当前项目 HTML 原型", "代码仓库结构"],
+          "outputs": ["schemas/project-state.schema.json", "examples/project-state.json"],
+          "scope": ["Project/Objective/Key Result", "L1 Feature/L2 Work Package", "每周计划与里程碑", "验收方法和可测指标"],
+          "estimate_points": 3,
+          "progress_items": [
+            {"id": "P-001-A", "title": "数据模型冻结", "weight": 1, "done": false, "evidence": []},
+            {"id": "P-001-B", "title": "示例数据符合契约", "weight": 1, "done": false, "evidence": []}
+          ],
+          "acceptance_criteria": [
+            {"id": "AC-001-A", "method": "JSON Schema 校验与 Python 契约测试", "metric": "必填字段覆盖率", "target": "100% 的 L2 包含输入、输出、范围、验收方法、指标和研究课题", "status": "NOT_RUN"},
+            {"id": "AC-001-B", "method": "读取周计划并检查日期区间", "metric": "周计划时间颗粒度", "target": "每条计划覆盖一个自然周且无缺失周", "status": "NOT_RUN"}
+          ],
+          "research_topic": {"id": "R-WP-001", "title": "怎样把 AI 生成的项目计划约束成可校验状态", "question": "哪些字段必须由模型提出，哪些计算必须由 Python 确定性完成？"}
+        },
+        {
+          "id": "WP-002",
+          "title": "实现状态流转与统一进度公式",
+          "status": "TODO",
+          "description": "按证据驱动状态流转，并从 L2 聚合到 L1 和项目总体进度。",
+          "inputs": ["WP-001 状态契约", "Work Package 估算权重", "验收记录"],
+          "outputs": ["scripts/project_state.py", "tests/test_project_state.py"],
+          "scope": ["TODO/READY/IN_PROGRESS/IMPLEMENTED/VERIFYING/DONE", "BLOCKED/FAILED/FIXING 回退闭环", "加权 L2/L1/总体进度"],
+          "estimate_points": 5,
+          "progress_items": [
+            {"id": "P-002-A", "title": "状态转换门禁", "weight": 2, "done": false, "evidence": []},
+            {"id": "P-002-B", "title": "层级进度聚合", "weight": 2, "done": false, "evidence": []},
+            {"id": "P-002-C", "title": "状态与公式回归测试", "weight": 1, "done": false, "evidence": []}
+          ],
+          "acceptance_criteria": [
+            {"id": "AC-002-A", "method": "单元测试覆盖每种允许和拒绝的状态转换", "metric": "流转规则测试通过率", "target": "100%", "status": "NOT_RUN"},
+            {"id": "AC-002-B", "method": "独立手算样例与函数结果对比", "metric": "进度计算绝对误差", "target": "≤0.01 个百分点", "status": "NOT_RUN"}
+          ],
+          "research_topic": {"id": "R-WP-002", "title": "状态进度如何同时保持自动计算和审计能力", "question": "如何避免手工进度覆盖验收状态，并保留失败后的局部重验记录？"}
+        }
+      ]
+    }
+  ],
+  "milestones": [
+    {"id": "MS-1", "title": "状态与数据契约可校验", "date": "2026-10-23", "acceptance": "示例 JSON 通过 schema 与运行时校验，L2 字段齐备。", "status": "TODO"},
+    {"id": "MS-2", "title": "首版 Skill 与仪表板闭环", "date": "2026-11-06", "acceptance": "Looma 更新流程通过契约测试，HTML 可展示功能、研究和时间线。", "status": "TODO"}
+  ],
+  "weeks": [
+    {"id": "W-2026-42", "start": "2026-10-12", "end": "2026-10-18", "objective": "冻结状态模型与验证要求", "deliverables": ["状态机规则", "进度聚合公式", "功能清单到数据模型映射"], "work_package_ids": ["WP-001"]},
+    {"id": "W-2026-43", "start": "2026-10-19", "end": "2026-10-25", "objective": "完成状态数据契约与关键校验", "deliverables": ["JSON Schema", "示例项目状态", "L2 验收门禁测试"], "work_package_ids": ["WP-001", "WP-002"]},
+    {"id": "W-2026-44", "start": "2026-10-26", "end": "2026-11-01", "objective": "完成进度公式与执行记录逻辑", "deliverables": ["状态流转实现", "Execution Log", "高价值实验筛选规则"], "work_package_ids": ["WP-002"]},
+    {"id": "W-2026-45", "start": "2026-11-02", "end": "2026-11-08", "objective": "接通 Looma 工作流和 HTML 详情视图", "deliverables": ["用户触发更新工作流", "一级功能详情页", "Execution Log 时间线与课题详情"], "work_package_ids": ["WP-002"]}
+  ],
+  "execution_log": [],
+  "experiments": [],
+  "work_logs": {"daily": [], "weekly": [], "monthly": []}
+}

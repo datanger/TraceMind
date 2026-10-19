@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f8f5">
+  <title>项目管理控制台 · __PROJECT_NAME__</title>
+  <style>
+    :root{color-scheme:light;--ink:#193a37;--muted:#596d65;--line:#dce8e3;--green:#24866f;--paper:#fff}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:#f5f8f5;font:15px/1.55 "Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    .aipm-skip-link{position:fixed;top:8px;left:8px;z-index:2000;transform:translateY(-160%);padding:9px 12px;border:1px solid #bfd9c8;border-radius:8px;background:#fff;color:#245f48}.aipm-skip-link:focus{transform:translateY(0)}
+    .page{max-width:1500px;margin:auto;padding:28px clamp(18px,4vw,58px) 54px}.topline{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:22px;color:var(--muted);font-size:13px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:750;color:#376b5d;letter-spacing:.04em}.brand-mark{display:grid;place-items:center;width:30px;height:30px;border:1px solid #b8d4c8;border-radius:10px;background:#fff;color:var(--green)}
+    .snapshot{display:flex;align-items:center;gap:8px}.snapshot i{width:7px;height:7px;border-radius:50%;background:#64ad88;box-shadow:0 0 0 4px #e3f2e9}
+    h1{margin:5px 0 16px;font-size:clamp(26px,3vw,38px);letter-spacing:-.04em;line-height:1.18}.management-top{display:grid;gap:12px;margin-bottom:18px}
+    .overall-card,.today-card,.map-panel{border:1px solid #e0e9e4;border-radius:16px;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(34,73,63,.045)}.overall-card,.today-card{padding:16px 18px}.card-heading,.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.card-heading h2,.section-head h2{margin:0;font-size:17px}.last-updated,.today-date,.muted{color:var(--muted);font-size:12px}
+    .overall-numbers{display:flex;align-items:baseline;gap:8px;margin:6px 0}.overall-numbers strong{font-size:26px;color:#286f5d}.progress-track{display:block;height:9px;overflow:hidden;border-radius:99px;background:#eaf1ec}.progress-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#74b492,#32846c);transition:width .25s ease}.progress-caption{display:flex;justify-content:space-between;gap:10px;margin-top:6px;color:var(--muted);font-size:12px}
+    .today-summary{display:grid;gap:8px;margin-top:9px}.today-summary a{color:#347760}.map-panel{padding:18px}.section-head{align-items:flex-start;margin-bottom:12px}.section-head p{margin:2px 0 0;color:var(--muted);font-size:12px}
+    .filters{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}.filter{min-height:36px;padding:6px 10px;border:1px solid #dce8e0;border-radius:8px;background:#fff;color:#49695a;cursor:pointer}.filter.active,.filter[aria-pressed=true]{background:#eaf5ee;color:#28684e;border-color:#bfd9c8;font-weight:650}.map-flow{display:flex;flex-wrap:wrap;gap:10px}.feature{flex:1 1 230px;min-width:min(100%,220px);border:1px solid #dbe8e0;border-radius:13px;background:#fff;transition:border-color .14s,box-shadow .14s}.feature[hidden]{display:none!important}.feature:hover{border-color:#9fcab0;box-shadow:0 5px 16px rgba(34,73,63,.07)}.feature-trigger{display:grid;gap:7px;width:100%;min-height:130px;padding:14px;border:0;border-radius:inherit;background:transparent;color:inherit;text-align:left;cursor:pointer}.feature-trigger h3{margin:0;font-size:15px}.feature-trigger p{margin:0;color:var(--muted);font-size:12px}.feature-state,.feature-progress-label{font-size:11px;color:var(--muted)}.feature-progress-label{display:flex;justify-content:space-between;gap:8px}.feature-progress .progress-track{height:6px}.feature-trigger:focus-visible,.filter:focus-visible{outline:3px solid #6da987;outline-offset:2px}
+    @media(max-width:640px){.page{padding:18px 14px 36px}.topline{align-items:flex-start;flex-direction:column}.overall-card,.today-card,.map-panel{padding:13px}.section-head{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <a class="aipm-skip-link" href="#main-content">跳到主要内容</a>
+  <main class="page" id="main-content" tabindex="-1">
+    <header class="topline"><div class="brand"><span class="brand-mark" aria-hidden="true">P</span><span>PROJECT CONTROL</span></div><div class="snapshot"><i aria-hidden="true"></i><span>项目状态由验收证据汇总</span></div></header>
+    <h1>__PROJECT_NAME__</h1>
+    <section class="management-top" aria-label="项目概览">
+      <section class="overall-card" aria-labelledby="overallTitle"><div class="card-heading"><h2 id="overallTitle">项目总体进度</h2><time id="lastUpdated"></time></div><div class="overall-numbers"><strong id="overallPercent">0%</strong><span id="overallCounts">0 / 0 个二级功能通过验收</span></div><div class="progress-track" id="overallProgress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span class="progress-fill" id="overallFill"></span></div><div class="progress-caption"><span id="overallMethod">按已验证的二级功能验收项计算</span><span>进度来自证据</span></div></section>
+      <section class="today-card" aria-labelledby="todayTitle"><div class="card-heading"><h2 id="todayTitle">当日工作与成果</h2><time class="today-date" id="todayDate"></time></div><div class="today-summary" id="todaySummary" aria-live="polite"></div></section>
+    </section>
+    <section class="panel map-panel" aria-labelledby="featureMapTitle"><div class="section-head"><div><h2 id="featureMapTitle">一级功能</h2><p>选择一级功能查看其二级功能及交付状态</p></div></div><div class="filters" role="group" aria-label="一级功能状态筛选"><button class="filter active" type="button" data-filter="all" aria-pressed="true">全部</button><button class="filter" type="button" data-filter="todo">待开始</button><button class="filter" type="button" data-filter="active">进行中</button><button class="filter" type="button" data-filter="done">已完成</button></div><div class="map-flow" id="featureFlow" aria-live="polite"></div></section>
+  </main>
+  <!-- AI_PM_STATE_SLOT -->
+</body>
+</html>
